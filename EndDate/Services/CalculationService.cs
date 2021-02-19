@@ -1,5 +1,7 @@
 ﻿using EndDate.Models;
 
+using Microsoft.Extensions.Logging.EventSource;
+
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -151,7 +153,14 @@ namespace EndDate.Services
 
                 //loop on all days
                 var currentday = input.StartDate;
-                while (currentday <= input.EndDate)
+                var endDate = input.EndDate;
+                if (leaves.Any()) {
+                    var lastLeaveDate = leaves.Last().Date;
+                    endDate = lastLeaveDate;
+                }
+            
+
+                while (currentday <= endDate)
                 {
                     var toAdd = new ProcessedDay { Date = currentday };
                     toAdd.IsFuture = currentday.Date > DateTime.Now.Date;
