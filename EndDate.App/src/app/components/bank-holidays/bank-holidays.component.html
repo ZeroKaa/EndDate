@@ -1,0 +1,40 @@
+<ng-container >
+    <h1>
+        <i class="fas fa-umbrella-beach"></i>
+        Liste des jours fériés
+    </h1>
+    <div>
+        <div class="box" *ngFor="let holiday of holidays">
+            <div class="flex-row flex-aic">
+                <div class="flex-grow">
+                    {{holiday.date | date: 'fullDate'}}
+                </div>
+                <div class="pointer red" (click)="delete(holiday)">
+                    <i class="fas fa-trash-alt"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="mt2 pointer" *ngIf="addRequested == false" (click)="addRequested = true">
+        <div class="flex-row flex-aic green">
+            <i class="fas fa-plus-square mr1"></i>
+            Ajouter un nouveau jour férié
+        </div>
+    </div>
+
+    <ng-container *ngIf="addRequested == true">
+        <h1 class="mt2 green">
+            <i class="fas fa-plus-square"></i>
+            Ajouter un nouveau jour férié
+        </h1>
+        <ng-ui-form [formGroup]="form" [disableSectionColoring]="true" *ngIf="form">
+            <ng-ui-form-control label="Date du jour férié">
+                <ng-ui-date-picker formControlName="date" format="EEEE d MMMM yyyy" [includeTime]="false"></ng-ui-date-picker>
+            </ng-ui-form-control>
+            <ng-ui-button-group class="mt2">
+                <ng-ui-button type="success" (click)="add()" [disabled]="!form.valid" [loading]="adding == true">Ajouter</ng-ui-button>
+            </ng-ui-button-group>
+        </ng-ui-form>
+    </ng-container>
+</ng-container>

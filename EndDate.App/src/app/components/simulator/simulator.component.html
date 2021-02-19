@@ -1,0 +1,147 @@
+<div class="simulator">
+    <ng-container *ngIf="state == 'input'">
+        <ng-ui-form [formGroup]="form" [disableSectionColoring]="true">
+            <ng-ui-form-controls>
+                <ng-ui-form-control label="Date de début de préavis">
+                    <ng-ui-date-picker formControlName="startDate" format="EEEE d MMMM yyyy" [includeTime]="false"></ng-ui-date-picker>
+                </ng-ui-form-control>
+                <ng-ui-form-control label="Date théorique de fin de préavis">
+                    <ng-ui-date-picker formControlName="endDate" format="EEEE d MMMM yyyy" [includeTime]="false"></ng-ui-date-picker>
+                </ng-ui-form-control>
+            </ng-ui-form-controls>
+
+            <ng-ui-form-control label="Prestations">
+                <file-upload formControlName="prestations" [multiple]="false" [animation]="true"></file-upload>
+            </ng-ui-form-control>
+
+            <ng-ui-form-control label="Absences">
+                <file-upload formControlName="leaves" [multiple]="false" [animation]="true"></file-upload>
+            </ng-ui-form-control>
+
+            <div class="errors mt2" *ngIf="this.result && this.result.errors && this.result.errors.length > 0">
+                <div class="error box" *ngFor="let err of this.result.errors">
+                    {{err}}
+                </div>
+            </div>
+
+            <ng-ui-button-group class="mt2">
+                <ng-ui-button icon="calculator" type="success" (click)="save()" [disabled]="!form.valid" [loading]="false">Calculer</ng-ui-button>
+                
+            </ng-ui-button-group>
+
+        </ng-ui-form>
+    </ng-container>
+
+    <ng-container *ngIf="state == 'loading'">
+        <div class="lds-facebook"><div></div><div></div><div></div></div>
+    </ng-container>
+
+    <ng-container *ngIf="state == 'results'">
+
+        <ng-ui-tab-group orientation="vertical" [light]="false" [hideSingle]="true">
+            <ng-ui-tab label="Détail du calcul">
+                <h1>
+                    <i class="fas fa-fw fa-keyboard"></i>
+                    Entrées
+                </h1>
+                <div>
+                    <div class="box">
+                        Date de début de préavis : {{result.startDate | date: 'fullDate'}}
+                    </div>
+                    <div class="box">
+                        Date théorique de fin de préavis : {{result.endDate | date: 'fullDate'}}
+                    </div>
+                </div>
+
+                
+
+                <h1 class="mt2">
+                    <i class="fas fa-fw fa-clipboard-check"></i>
+                    Résultats
+                </h1>
+                <div>
+                    <div class="box">
+                        Prolongation : <strong>{{result.totalExtensions}}</strong> jour(s)
+                    </div>
+                    <div class="box">
+                        Date réelle de fin de préavis : <strong>{{result.calculatedEndDate | date: 'fullDate'}}</strong>
+                    </div>
+                </div>
+
+                <ng-container *ngIf="result && result.extensions && result.extensions.length > 0">
+                    <h1 class="mt2">
+                        <i fa-fw class="fas fa-info-circle"></i>
+                        Justifications
+                    </h1>
+                    <div>
+                        <div class="box" *ngFor="let ext of result.extensions">
+                            <div class="flex-row">
+                                <div style="width:300px" class="flex-row">
+                                    {{ext.date | date: 'fullDate'}}
+                                </div>
+                                <div class="flex-row flex-aic">
+                                    <div class="small-box" *ngFor="let c of ext.codes" [tooltip]="c.description">
+                                        {{c.code}}
+                                    </div>
+                                    
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </ng-container>
+
+                <ng-container *ngIf="result && result.missings && result.missings.length > 0">
+                    <h1 class="mt2">
+                        <i class="fas fa-fw fa-exclamation-triangle"></i>
+                        Jours sans aucune informations
+                    </h1>
+                    <div>
+                        <div class="box" *ngFor="let ext of result.missings">
+                            <div class="flex-row">
+                                <div style="width:300px" class="flex-row">
+                                    {{ext.date | date: 'fullDate'}}
+                                </div>
+                                <div>
+                                    {{ext.comment}}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </ng-container>
+
+                <h1 class="mt2">
+                    <i class="fas fa-fw fa-download"></i>
+                    Sauvegarder le résultat
+                </h1>
+                <ng-ui-form [formGroup]="downloadForm" [disableSectionColoring]="true">
+                    <ng-ui-form-control label="Nom du fichier">
+                        <input type="text" formControlName="fileName" />
+                    </ng-ui-form-control>
+                    <ng-ui-button-group class="mt1">
+                        <ng-ui-button icon="download" [disabled]="!downloadForm.valid" type="information" (click)="downloadResult()" [loading]="false">Télécharger ce résultat</ng-ui-button>
+                    </ng-ui-button-group>
+                </ng-ui-form>
+
+            </ng-ui-tab>
+            <ng-ui-tab label="Calendrier">
+                <ng-ui-calendar [events]="events">
+                    <ng-template ngUiCalendarEvent let-event>
+                        {{ event.title }}
+                    </ng-template>
+                    <ng-template ngUiCalendarTooltip let-day>
+                        <div *ngFor="let e of day.events">{{ e.data.title }}</div>
+                    </ng-template>
+                </ng-ui-calendar>
+
+            </ng-ui-tab>
+
+        </ng-ui-tab-group>
+
+
+
+        <ng-ui-button-group class="mt2">
+            <ng-ui-button icon="undo-alt" type="default" (click)="resetPage()" [loading]="false">Nouvelle simulation</ng-ui-button>
+            <a id="downloadAnchorElem" style="display:none"></a>
+        </ng-ui-button-group>
+    </ng-container>
+</div>

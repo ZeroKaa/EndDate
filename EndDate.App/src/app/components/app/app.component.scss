@@ -1,0 +1,23 @@
+.content {
+    max-width: 1400px;
+    background-color: #fafafa;
+    height: calc(100vh - 80px);
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.toolbar {
+    background: #0077c1;
+    height: 60px;
+    padding: 20px;
+
+    a {
+        color: white;
+        cursor: pointer;
+        font-size: 1rem;
+    }
+
+    .link:hover{
+        text-decoration:underline;
+    }
+}

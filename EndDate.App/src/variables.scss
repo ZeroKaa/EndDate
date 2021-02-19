@@ -1,0 +1,49 @@
+$main-color: #2B9BA6;
+$main-color-light: #F0F4F8;
+$main-blue: #434967;
+$main-border-color: #dfdfdf;
+$main-border-color-dark: darken($main-border-color,10%);
+$main-gray: #8e8e8e;
+$main-gray-alt: #646d7a;
+$main-green: #009DA5;
+$main-orange: #F79B2F;
+$main-red: #c0392b;
+$main-yellow: #FFE552;
+$main-white: #ffffff;
+$main-red: #B05468;
+$control-border-color: #ccc;
+
+$dark-blue: darken($main-blue, 10%);
+$dark-gray: darken($main-gray, 10%);
+$dark-green: darken($main-green, 10%);
+$dark-orange: darken($main-orange, 10%);
+$dark-red: darken($main-red, 10%);
+$dark-yellow: darken($main-yellow, 10%);
+
+$light-blue: lighten($main-blue, 10%);
+$light-gray: lighten($main-gray, 10%);
+$light-green: lighten($main-green, 10%);
+$light-orange: lighten($main-orange, 10%);
+$light-red: lighten($main-red, 10%);
+$light-yellow: lighten($main-yellow, 10%);
+
+$ultra-light-blue: lighten($main-blue, 20%);
+$ultra-light-gray: lighten($main-gray, 20%);
+$ultra-light-green: lighten($main-green, 20%);
+$ultra-light-orange: lighten($main-orange, 20%);
+$ultra-light-red: lighten($main-red, 20%);
+$ultra-light-yellow: lighten($main-yellow, 20%);
+
+$extra-light-blue: lighten($main-blue, 30%);
+$extra-light-gray: lighten($main-gray, 30%);
+$extra-light-green: lighten($main-green, 30%);
+$extra-light-orange: lighten($main-orange, 40%);
+$extra-light-red: lighten($main-red, 30%);
+$extra-light-yellow: lighten($main-yellow, 30%);
+
+$white-brackground: #fafafa;
+
+
+:root {
+    --ng-ui-error: #B05468;
+}

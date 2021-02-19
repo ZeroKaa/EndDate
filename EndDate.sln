@@ -1,0 +1,30 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30803.129
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EndDate", "EndDate\EndDate.csproj", "{2922AAB0-5EBC-4C55-964F-F962156F6039}"
+EndProject
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "EndDate.App", "EndDate.App\EndDate.App.shproj", "{72997509-51B7-4AED-BDDF-DBBF0C910C10}"
+EndProject
+Global
+	GlobalSection(SharedMSBuildProjectFiles) = preSolution
+		EndDate.App\EndDate.App.projitems*{72997509-51b7-4aed-bddf-dbbf0c910c10}*SharedItemsImports = 13
+	EndGlobalSection
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{2922AAB0-5EBC-4C55-964F-F962156F6039}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2922AAB0-5EBC-4C55-964F-F962156F6039}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2922AAB0-5EBC-4C55-964F-F962156F6039}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2922AAB0-5EBC-4C55-964F-F962156F6039}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {B7367389-1ADC-4131-A90F-400DCCBB0C0E}
+	EndGlobalSection
+EndGlobal

@@ -1,0 +1,22 @@
+table {
+    width: 100%;
+
+    td {
+        &.description {
+            width: 50%;
+        }
+    }
+
+    thead td {
+        background-color: #0077c1;
+        color: white;
+        text-transform: uppercase;
+        padding: 5px 10px;
+        border-bottom: solid 1px black;
+    }
+
+    tbody td {
+        padding: 5px 10px;
+        border-bottom: solid 1px black;
+    }
+}

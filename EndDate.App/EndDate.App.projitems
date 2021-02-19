@@ -1,0 +1,61 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <MSBuildAllProjects Condition="'$(MSBuildVersion)' == '' Or '$(MSBuildVersion)' &lt; '16.0'">$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
+    <HasSharedItems>true</HasSharedItems>
+    <SharedGUID>72997509-51b7-4aed-bddf-dbbf0c910c10</SharedGUID>
+  </PropertyGroup>
+  <PropertyGroup Label="Configuration">
+    <Import_RootNamespace>EndDate.App</Import_RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <None Include="$(MSBuildThisFileDirectory).browserslistrc" />
+    <None Include="$(MSBuildThisFileDirectory).npmrc" />
+    <None Include="$(MSBuildThisFileDirectory).yarnrc" />
+    <None Include="$(MSBuildThisFileDirectory)src\app\app-routing.module.ts" />
+    <None Include="$(MSBuildThisFileDirectory)src\app\app.module.ts" />
+    <None Include="$(MSBuildThisFileDirectory)src\app\components\app\app.component.scss" />
+    <None Include="$(MSBuildThisFileDirectory)src\app\components\app\app.component.ts" />
+    <None Include="$(MSBuildThisFileDirectory)src\app\components\leave-types\leave-types.component.scss" />
+    <None Include="$(MSBuildThisFileDirectory)src\app\components\leave-types\leave-types.component.ts" />
+    <None Include="$(MSBuildThisFileDirectory)src\app\components\bank-holidays\bank-holidays.component.scss" />
+    <None Include="$(MSBuildThisFileDirectory)src\app\components\bank-holidays\bank-holidays.component.ts" />
+    <None Include="$(MSBuildThisFileDirectory)src\app\components\home\home.component.scss" />
+    <None Include="$(MSBuildThisFileDirectory)src\app\components\home\home.component.ts" />
+    <None Include="$(MSBuildThisFileDirectory)src\app\components\open\open.component.scss" />
+    <None Include="$(MSBuildThisFileDirectory)src\app\components\open\open.component.ts" />
+    <None Include="$(MSBuildThisFileDirectory)src\app\components\simulator\simulator.component.scss" />
+    <None Include="$(MSBuildThisFileDirectory)src\app\components\simulator\simulator.component.ts" />
+    <None Include="$(MSBuildThisFileDirectory)src\app\models\calculation.interface.ts" />
+    <None Include="$(MSBuildThisFileDirectory)src\app\services\auth.interceptor.ts" />
+    <None Include="$(MSBuildThisFileDirectory)src\app\services\auth-config.ts" />
+    <None Include="$(MSBuildThisFileDirectory)src\app\services\auth-gard.service.ts" />
+    <None Include="$(MSBuildThisFileDirectory)src\app\services\auth.service.ts" />
+    <None Include="$(MSBuildThisFileDirectory)src\app\services\leave-types.service.ts" />
+    <None Include="$(MSBuildThisFileDirectory)src\app\services\bank-holidays.service.ts" />
+    <None Include="$(MSBuildThisFileDirectory)src\app\services\date.service.ts" />
+    <None Include="$(MSBuildThisFileDirectory)src\app\services\user.service.ts" />
+    <None Include="$(MSBuildThisFileDirectory)src\app\services\translation.service.ts" />
+    <None Include="$(MSBuildThisFileDirectory)src\app\services\calculation.service.ts" />
+    <None Include="$(MSBuildThisFileDirectory)src\environments\environment.prod.ts" />
+    <None Include="$(MSBuildThisFileDirectory)src\environments\environment.ts" />
+    <None Include="$(MSBuildThisFileDirectory)src\main.ts" />
+    <None Include="$(MSBuildThisFileDirectory)src\polyfills.ts" />
+    <None Include="$(MSBuildThisFileDirectory)src\styles.scss" />
+    <None Include="$(MSBuildThisFileDirectory)src\variables.scss" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="$(MSBuildThisFileDirectory)angular.json" />
+    <Content Include="$(MSBuildThisFileDirectory)package.json" />
+    <Content Include="$(MSBuildThisFileDirectory)src\app\components\app\app.component.html" />
+    <Content Include="$(MSBuildThisFileDirectory)src\app\components\leave-types\leave-types.component.html" />
+    <Content Include="$(MSBuildThisFileDirectory)src\app\components\bank-holidays\bank-holidays.component.html" />
+    <Content Include="$(MSBuildThisFileDirectory)src\app\components\home\home.component.html" />
+    <Content Include="$(MSBuildThisFileDirectory)src\app\components\open\open.component.html" />
+    <Content Include="$(MSBuildThisFileDirectory)src\app\components\simulator\simulator.component.html" />
+    <Content Include="$(MSBuildThisFileDirectory)src\assets\img\logo.png" />
+    <Content Include="$(MSBuildThisFileDirectory)src\index.html" />
+    <Content Include="$(MSBuildThisFileDirectory)tsconfig.json" />
+    <Content Include="$(MSBuildThisFileDirectory)tslint.json" />
+  </ItemGroup>
+</Project>

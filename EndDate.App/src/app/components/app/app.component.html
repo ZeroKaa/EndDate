@@ -1,0 +1,30 @@
+<div routeTransformer class="container">
+    <div *ngIf="applicationIsReady == true">
+        <div class="uppercase toolbar flex-row flex-aic white font-size15">
+            <div class="flex-row flex-aic flex-grow">
+                <i class="fas fa-calendar-alt mr1"></i>
+                Calcul de prolongation de préavis
+            </div>
+            <div class="flex-row flex-aic font-size10">
+                <div class="link flex-row flex-aic pointer mr2" (click)="newSimulation()">
+                    <i class="fas fa-calculator mr1"></i>Nouvelle simulation
+                </div>
+                <div *ngIf="lastResultAvailable()" class="link flex-row flex-aic pointer mr2" (click)="reload()">
+                    <i class="fas fa-history mr1"></i>Revoir votre dernière simulation
+                </div>
+                <div  class="link flex-row flex-aic pointer mr2" [routerLink]="['/open']">
+                    <i class="fas fa-upload mr1"></i>Ouvrir une simulation
+                </div>
+               
+                <div class="link flex-row flex-aic pointer mr2" [routerLink]="['/leave-types']">
+                    <i class="fas fa-tag mr1"></i>Codes d'absence
+                </div>
+
+            </div>
+        </div>
+
+        <div class="content content-scroll">
+            <router-outlet></router-outlet>
+        </div>
+    </div>
+</div>
