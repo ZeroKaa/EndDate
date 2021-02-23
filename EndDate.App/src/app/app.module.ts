@@ -17,13 +17,14 @@ import { LeaveTypesService } from './services/leave-types.service';
 import { LeaveTypesComponent } from './components/leave-types/leave-types.component';
 import { OAuthModule, OAuthStorage } from 'angular-oauth2-oidc';
 import { AuthInterceptor } from './services/auth.interceptor';
+import { PdfComponent } from './components/pdf/pdf.component';
 
 
 require.context('../assets/img', true);
 registerLocaleData(localeFr);
 
 @NgModule({
-    declarations: [AppComponent, HomeComponent, SimulatorComponent, BankHolidaysComponent, LeaveTypesComponent, OpenComponent],
+    declarations: [AppComponent, HomeComponent, SimulatorComponent, BankHolidaysComponent, LeaveTypesComponent, OpenComponent, PdfComponent],
     imports: [
         AppRoutingModule,
         BrowserModule,

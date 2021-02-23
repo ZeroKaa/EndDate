@@ -1,0 +1,60 @@
+<div *ngIf="result">
+
+
+    <ng-ui-button icon="file-pdf" type="information" (click)="createPdf()" [loading]="false">Télécharger le PDF</ng-ui-button>
+
+    <div class="pdf mt2">
+        <div id="pdf" class="pdf-content">
+            <div>
+                <div class="title">
+
+                    CALCUL DE PROLONGATION DE PRÉAVIS
+                </div>
+                <div class="box">
+                    <div class="flex-row flex-aic">
+                        <div class="flex-grow">
+                            <p>
+                                Date de début de préavis : {{result.startDate | date: 'fullDate'}}
+                            </p>
+                            <p>
+                                Date théorique de fin de préavis :  <strong>{{result.endDate | date: 'fullDate'}}</strong>
+                            </p>
+                            <p>
+                                Prolongation : <strong>{{result.totalExtensions}}</strong> jour(s)
+                            </p>
+                            <p>
+                                Date réelle de fin de préavis : <strong>{{result.calculatedEndDate | date: 'fullDate'}}</strong>
+                            </p>
+                        </div>
+                        <div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div>
+                <div class="title mt1">
+
+                    JOURS DE PROLONGATIONS
+                </div>
+                <div class="box" *ngFor="let ext of result.extensions">
+                    <div class="flex-row">
+                        <div style="width:300px" class="flex-row">
+                            {{ext.date | date: 'fullDate'}}
+                        </div>
+                        <div>
+                            <div *ngFor="let c of ext.codes">
+                                <div class="justification flex-row flex-aic">
+                                    <div class="mr2">{{c.code}}</div>
+                                    <div>{{c.description}}</div>
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -24,6 +24,8 @@
     <None Include="$(MSBuildThisFileDirectory)src\app\components\home\home.component.ts" />
     <None Include="$(MSBuildThisFileDirectory)src\app\components\open\open.component.scss" />
     <None Include="$(MSBuildThisFileDirectory)src\app\components\open\open.component.ts" />
+    <None Include="$(MSBuildThisFileDirectory)src\app\components\pdf\pdf.component.scss" />
+    <None Include="$(MSBuildThisFileDirectory)src\app\components\pdf\pdf.component.ts" />
     <None Include="$(MSBuildThisFileDirectory)src\app\components\simulator\simulator.component.scss" />
     <None Include="$(MSBuildThisFileDirectory)src\app\components\simulator\simulator.component.ts" />
     <None Include="$(MSBuildThisFileDirectory)src\app\models\calculation.interface.ts" />
@@ -52,6 +54,7 @@
     <Content Include="$(MSBuildThisFileDirectory)src\app\components\bank-holidays\bank-holidays.component.html" />
     <Content Include="$(MSBuildThisFileDirectory)src\app\components\home\home.component.html" />
     <Content Include="$(MSBuildThisFileDirectory)src\app\components\open\open.component.html" />
+    <Content Include="$(MSBuildThisFileDirectory)src\app\components\pdf\pdf.component.html" />
     <Content Include="$(MSBuildThisFileDirectory)src\app\components\simulator\simulator.component.html" />
     <Content Include="$(MSBuildThisFileDirectory)src\assets\img\logo.png" />
     <Content Include="$(MSBuildThisFileDirectory)src\index.html" />

@@ -9,6 +9,6 @@ export const authConfig: AuthConfig = {
     strictDiscoveryDocumentValidation: false,
     resource: 'da864598-d823-4484-b8dc-7597968ba8a6',
     clearHashAfterLogin: true,
-    customQueryParams: { 'domain_hint': 'consultpoint.net' },
-    showDebugInformation: true
+    //customQueryParams: { 'domain_hint': 'consultpoint.net' },
+    showDebugInformation: false
 };

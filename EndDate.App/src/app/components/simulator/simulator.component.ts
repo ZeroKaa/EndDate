@@ -28,6 +28,7 @@ export class SimulatorComponent implements OnInit {
     public state = "input";
     public result: ICalculationOutput;
     public events: IExtensionCalendarEvent[];
+   
 
     constructor(
         private _router: Router,
@@ -42,6 +43,7 @@ export class SimulatorComponent implements OnInit {
     public async ngOnInit(): Promise<void> {
         if (sessionStorage.getItem('open_simulation')) {
             this.result = JSON.parse(sessionStorage.getItem('open_simulation'));
+            
             this.updateCalendar();
             this.state = "results";
             sessionStorage.removeItem('open_simulation');
@@ -55,6 +57,7 @@ export class SimulatorComponent implements OnInit {
         var b64Leaves = await this.toBase64(v.leaves[0]);
 
         this.result = await this._calculator.calculate({ startDate: v.startDate, endDate: v.endDate, prestations: b64Prestations, leaves: b64Leaves });
+        
         this.updateCalendar();
         if (this.result && this.result.errors && this.result.errors.length == 0) {
             this.state = "results";
@@ -114,7 +117,14 @@ export class SimulatorComponent implements OnInit {
             var dlAnchorElem = document.getElementById('downloadAnchorElem');
             dlAnchorElem.setAttribute("href", dataStr);
             dlAnchorElem.setAttribute("download", `${this.downloadForm.value.fileName}.json`);
-            dlAnchorElem.click();
+            dlAnchorElem.click();   
+        }
+    }
+
+    public toPdf() {
+        if (this.result) {
+            sessionStorage.setItem('open_simulation', JSON.stringify(this.result));
+            this._router.navigateByUrl('/pdf');
         }
     }
 

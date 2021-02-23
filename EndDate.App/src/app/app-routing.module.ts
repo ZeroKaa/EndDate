@@ -4,6 +4,7 @@ import { BankHolidaysComponent } from './components/bank-holidays/bank-holidays.
 import { HomeComponent } from './components/home/home.component';
 import { LeaveTypesComponent } from './components/leave-types/leave-types.component';
 import { OpenComponent } from './components/open/open.component';
+import { PdfComponent } from './components/pdf/pdf.component';
 import { AuthGuardService } from './services/auth-gard.service';
 
 
@@ -26,6 +27,11 @@ const routes: Routes = [
     {
         path: 'open',
         component: OpenComponent,
+        canActivate: [AuthGuardService]
+    },
+    {
+        path: 'pdf',
+        component: PdfComponent,
         canActivate: [AuthGuardService]
     },
     {
