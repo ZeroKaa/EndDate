@@ -129,15 +129,16 @@
 
             </ng-ui-tab>
             <ng-ui-tab label="Calendrier">
-                <ng-ui-calendar [events]="events">
-                    <ng-template ngUiCalendarEvent let-event>
-                        {{ event.title }}
-                    </ng-template>
-                    <ng-template ngUiCalendarTooltip let-day>
-                        <div *ngFor="let e of day.events">{{ e.data.title }}</div>
-                    </ng-template>
-                </ng-ui-calendar>
-
+                <ng-container *ngIf="showCalendar == true">
+                    <ng-ui-calendar [events]="events">
+                        <ng-template ngUiCalendarEvent let-event>
+                            {{ event.title }}
+                        </ng-template>
+                        <ng-template ngUiCalendarTooltip let-day>
+                            <div *ngFor="let e of day.events">{{ e.data.title }}</div>
+                        </ng-template>
+                    </ng-ui-calendar>
+                </ng-container>
             </ng-ui-tab>
 
         </ng-ui-tab-group>

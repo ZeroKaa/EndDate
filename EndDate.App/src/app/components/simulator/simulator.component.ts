@@ -28,7 +28,7 @@ export class SimulatorComponent implements OnInit {
     public state = "input";
     public result: ICalculationOutput;
     public events: IExtensionCalendarEvent[];
-   
+    public showCalendar = false;
 
     constructor(
         private _router: Router,
@@ -43,7 +43,6 @@ export class SimulatorComponent implements OnInit {
     public async ngOnInit(): Promise<void> {
         if (sessionStorage.getItem('open_simulation')) {
             this.result = JSON.parse(sessionStorage.getItem('open_simulation'));
-            
             this.updateCalendar();
             this.state = "results";
             sessionStorage.removeItem('open_simulation');
@@ -69,7 +68,8 @@ export class SimulatorComponent implements OnInit {
     }
 
     private updateCalendar() {
-        var evts: IExtensionCalendarEvent[] = [];
+        this.showCalendar = false;
+        this.events = [];
         for (const m of this.result.extensions) {
             var date = new Date(m.date);
             var endDate = new Date(m.date);
@@ -78,7 +78,7 @@ export class SimulatorComponent implements OnInit {
             for (const c of m.codes) {
                 title += c.code + ",";
             }
-            evts.push(
+            this.events.push(
                 {
                     from: date,
                     to: endDate,
@@ -87,8 +87,10 @@ export class SimulatorComponent implements OnInit {
                 });
         }
 
+       
+        console.log("events", this.events);
 
-        this.events = evts;
+        this.showCalendar = false;
     }
 
     public resetForm() {
