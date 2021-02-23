@@ -737,6 +737,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/router */ "tyNb");
 /* harmony import */ var _services_calculation_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../services/calculation.service */ "GOJ5");
 /* harmony import */ var _services_date_service__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../../services/date.service */ "Ig2y");
+/* harmony import */ var jspdf__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! jspdf */ "i680");
+/* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @angular/common */ "ofXK");
+
+
 
 
 
@@ -746,12 +750,13 @@ __webpack_require__.r(__webpack_exports__);
 
 
 let SimulatorComponent = class SimulatorComponent {
-    constructor(_router, _route, _fb, _calculator, _date) {
+    constructor(_router, _route, _fb, _calculator, _date, _datePipe) {
         this._router = _router;
         this._route = _route;
         this._fb = _fb;
         this._calculator = _calculator;
         this._date = _date;
+        this._datePipe = _datePipe;
         this.state = "input";
         this.toBase64 = file => new Promise((resolve, reject) => {
             const reader = new FileReader();
@@ -831,10 +836,49 @@ let SimulatorComponent = class SimulatorComponent {
         }
     }
     toPdf() {
-        if (this.result) {
-            sessionStorage.setItem('open_simulation', JSON.stringify(this.result));
-            this._router.navigateByUrl('/pdf');
-        }
+        return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, function* () {
+            if (this.result) {
+                //sessionStorage.setItem('open_simulation', JSON.stringify(this.result));
+                //this._router.navigateByUrl('/pdf');
+                const filename = 'export.pdf';
+                var page = 1;
+                var doc = new jspdf__WEBPACK_IMPORTED_MODULE_8__["jsPDF"]("p", "mm", "a4");
+                var y = 20;
+                doc.setFontSize(16);
+                doc.text('Calcul de prolongation de préavis', 10, y);
+                doc.setFontSize(10);
+                y += 15;
+                doc.text(`Date de début de préavis : ${this._datePipe.transform(this.result.startDate, 'fullDate')}`, 10, y);
+                y += 5;
+                doc.text(`Date théorique de fin de préavis : ${this._datePipe.transform(this.result.endDate, 'fullDate')}`, 10, y);
+                y += 10;
+                doc.text(`Prolongation : ${this.result.totalExtensions} jour(s)`, 10, y);
+                y += 5;
+                doc.text(`Date réelle de fin de préavis : ${this._datePipe.transform(this.result.calculatedEndDate, 'fullDate')}`, 10, y);
+                y += 15;
+                doc.setFontSize(12);
+                doc.text("Jours de prolongation", 10, y);
+                y += 10;
+                doc.setFontSize(10);
+                for (let d of this.result.extensions) {
+                    console.log(this._datePipe.transform(d.date, 'fullDate'), y);
+                    this._date.convertToDate(d);
+                    doc.text(`${this._datePipe.transform(d.date, 'fullDate')}`, 10, y);
+                    for (let code of d.codes) {
+                        doc.text(`${code.code} - ${code.description}`, 70, y);
+                        y += 5;
+                        if (y > 280) {
+                            doc.addPage("a4", "p");
+                            page++;
+                            doc.setPage(page);
+                            y = 20;
+                        }
+                    }
+                    //y += 5;
+                }
+                doc.save(`${this.downloadForm.value.fileName}.pdf`);
+            }
+        });
     }
 };
 SimulatorComponent.ctorParameters = () => [
@@ -842,7 +886,8 @@ SimulatorComponent.ctorParameters = () => [
     { type: _angular_router__WEBPACK_IMPORTED_MODULE_5__["ActivatedRoute"] },
     { type: _angular_forms__WEBPACK_IMPORTED_MODULE_4__["FormBuilder"] },
     { type: _services_calculation_service__WEBPACK_IMPORTED_MODULE_6__["CalculationService"] },
-    { type: _services_date_service__WEBPACK_IMPORTED_MODULE_7__["DateService"] }
+    { type: _services_date_service__WEBPACK_IMPORTED_MODULE_7__["DateService"] },
+    { type: _angular_common__WEBPACK_IMPORTED_MODULE_9__["DatePipe"] }
 ];
 SimulatorComponent = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])([
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_3__["Component"])({
@@ -854,7 +899,8 @@ SimulatorComponent = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])([
         _angular_router__WEBPACK_IMPORTED_MODULE_5__["ActivatedRoute"],
         _angular_forms__WEBPACK_IMPORTED_MODULE_4__["FormBuilder"],
         _services_calculation_service__WEBPACK_IMPORTED_MODULE_6__["CalculationService"],
-        _services_date_service__WEBPACK_IMPORTED_MODULE_7__["DateService"]])
+        _services_date_service__WEBPACK_IMPORTED_MODULE_7__["DateService"],
+        _angular_common__WEBPACK_IMPORTED_MODULE_9__["DatePipe"]])
 ], SimulatorComponent);
 
 
@@ -985,7 +1031,7 @@ AppComponent = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])([
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<div class=\"simulator\">\r\n    <ng-container *ngIf=\"state == 'input'\">\r\n        <ng-ui-form [formGroup]=\"form\" [disableSectionColoring]=\"true\">\r\n            <ng-ui-form-controls>\r\n                <ng-ui-form-control label=\"Date de début de préavis\">\r\n                    <ng-ui-date-picker formControlName=\"startDate\" format=\"EEEE d MMMM yyyy\" [includeTime]=\"false\"></ng-ui-date-picker>\r\n                </ng-ui-form-control>\r\n                <ng-ui-form-control label=\"Date théorique de fin de préavis\">\r\n                    <ng-ui-date-picker formControlName=\"endDate\" format=\"EEEE d MMMM yyyy\" [includeTime]=\"false\"></ng-ui-date-picker>\r\n                </ng-ui-form-control>\r\n            </ng-ui-form-controls>\r\n\r\n            <ng-ui-form-control label=\"Prestations\">\r\n                <file-upload formControlName=\"prestations\" [multiple]=\"false\" [animation]=\"true\"></file-upload>\r\n            </ng-ui-form-control>\r\n\r\n            <ng-ui-form-control label=\"Absences\">\r\n                <file-upload formControlName=\"leaves\" [multiple]=\"false\" [animation]=\"true\"></file-upload>\r\n            </ng-ui-form-control>\r\n\r\n            <div class=\"errors mt2\" *ngIf=\"this.result && this.result.errors && this.result.errors.length > 0\">\r\n                <div class=\"error box\" *ngFor=\"let err of this.result.errors\">\r\n                    {{err}}\r\n                </div>\r\n            </div>\r\n\r\n            <ng-ui-button-group class=\"mt2\">\r\n                <ng-ui-button icon=\"calculator\" type=\"success\" (click)=\"save()\" [disabled]=\"!form.valid\" [loading]=\"false\">Calculer</ng-ui-button>\r\n\r\n            </ng-ui-button-group>\r\n\r\n        </ng-ui-form>\r\n    </ng-container>\r\n\r\n    <ng-container *ngIf=\"state == 'loading'\">\r\n        <div class=\"lds-facebook\"><div></div><div></div><div></div></div>\r\n    </ng-container>\r\n\r\n    <ng-container *ngIf=\"state == 'results'\">\r\n\r\n        <ng-ui-tab-group orientation=\"vertical\" [light]=\"false\" [hideSingle]=\"true\">\r\n            <ng-ui-tab label=\"Détail du calcul\">\r\n                <h1>\r\n                    <i class=\"fas fa-fw fa-keyboard\"></i>\r\n                    Entrées\r\n                </h1>\r\n                <div>\r\n                    <div class=\"box\">\r\n                        Date de début de préavis : {{result.startDate | date: 'fullDate'}}\r\n                    </div>\r\n                    <div class=\"box\">\r\n                        Date théorique de fin de préavis : {{result.endDate | date: 'fullDate'}}\r\n                    </div>\r\n                </div>\r\n\r\n\r\n\r\n                <h1 class=\"mt2\">\r\n                    <i class=\"fas fa-fw fa-clipboard-check\"></i>\r\n                    Résultats\r\n                </h1>\r\n                <div>\r\n                    <div class=\"box\">\r\n                        Prolongation : <strong>{{result.totalExtensions}}</strong> jour(s)\r\n                    </div>\r\n                    <div class=\"box\">\r\n                        Date réelle de fin de préavis : <strong>{{result.calculatedEndDate | date: 'fullDate'}}</strong>\r\n                    </div>\r\n                </div>\r\n\r\n                <ng-container *ngIf=\"result && result.extensions && result.extensions.length > 0\">\r\n                    <h1 class=\"mt2\">\r\n                        <i fa-fw class=\"fas fa-info-circle\"></i>\r\n                        Justifications\r\n                    </h1>\r\n                    <div>\r\n                        <div class=\"box\" *ngFor=\"let ext of result.extensions\">\r\n                            <div class=\"flex-row\">\r\n                                <div style=\"width:300px\" class=\"flex-row\">\r\n                                    {{ext.date | date: 'fullDate'}}\r\n                                </div>\r\n                                <div class=\"flex-row flex-aic\">\r\n                                    <div class=\"small-box\" *ngFor=\"let c of ext.codes\" [tooltip]=\"c.description\">\r\n                                        {{c.code}}\r\n                                    </div>\r\n\r\n                                </div>\r\n                            </div>\r\n                        </div>\r\n                    </div>\r\n                </ng-container>\r\n\r\n                <ng-container *ngIf=\"result && result.missings && result.missings.length > 0\">\r\n                    <h1 class=\"mt2\">\r\n                        <i class=\"fas fa-fw fa-exclamation-triangle\"></i>\r\n                        Jours sans aucune informations\r\n                    </h1>\r\n                    <div>\r\n                        <div class=\"box\" *ngFor=\"let ext of result.missings\">\r\n                            <div class=\"flex-row\">\r\n                                <div style=\"width:300px\" class=\"flex-row\">\r\n                                    {{ext.date | date: 'fullDate'}}\r\n                                </div>\r\n                                <div>\r\n                                    {{ext.comment}}\r\n                                </div>\r\n                            </div>\r\n                        </div>\r\n                    </div>\r\n                </ng-container>\r\n\r\n                <!--<h1 class=\"mt2 pointer\" (click)=\"toPdf()\">\r\n                    <i class=\"fas fa-file-pdf\"></i>\r\n                    Exporter en PDF\r\n                </h1>-->\r\n\r\n                <h1 class=\"mt2\">\r\n                    <i class=\"fas fa-fw fa-download\"></i>\r\n                    Sauvegarder le résultat\r\n                </h1>\r\n                <ng-ui-form [formGroup]=\"downloadForm\" [disableSectionColoring]=\"true\">\r\n                    <ng-ui-form-control label=\"Nom du fichier\">\r\n                        <input type=\"text\" formControlName=\"fileName\" />\r\n                    </ng-ui-form-control>\r\n                    <ng-ui-button-group class=\"mt1\">\r\n                        <ng-ui-button icon=\"download\" [disabled]=\"!downloadForm.valid\" type=\"information\" (click)=\"downloadResult()\" [loading]=\"false\">Télécharger ce résultat</ng-ui-button>\r\n                    </ng-ui-button-group>\r\n                </ng-ui-form>\r\n\r\n            </ng-ui-tab>\r\n            <ng-ui-tab label=\"Calendrier\">\r\n                <ng-ui-calendar [events]=\"events\">\r\n                    <ng-template ngUiCalendarEvent let-event>\r\n                        {{ event.title }}\r\n                    </ng-template>\r\n                    <ng-template ngUiCalendarTooltip let-day>\r\n                        <div *ngFor=\"let e of day.events\">{{ e.data.title }}</div>\r\n                    </ng-template>\r\n                </ng-ui-calendar>\r\n\r\n            </ng-ui-tab>\r\n\r\n        </ng-ui-tab-group>\r\n\r\n\r\n\r\n        <ng-ui-button-group class=\"mt2\">\r\n            <ng-ui-button icon=\"undo-alt\" type=\"default\" (click)=\"resetPage()\" [loading]=\"false\">Nouvelle simulation</ng-ui-button>\r\n            <a id=\"downloadAnchorElem\" style=\"display:none\"></a>\r\n        </ng-ui-button-group>\r\n    </ng-container>\r\n</div>");
+/* harmony default export */ __webpack_exports__["default"] = ("<div class=\"simulator\">\r\n    <ng-container *ngIf=\"state == 'input'\">\r\n        <ng-ui-form [formGroup]=\"form\" [disableSectionColoring]=\"true\">\r\n            <ng-ui-form-controls>\r\n                <ng-ui-form-control label=\"Date de début de préavis\">\r\n                    <ng-ui-date-picker formControlName=\"startDate\" format=\"EEEE d MMMM yyyy\" [includeTime]=\"false\"></ng-ui-date-picker>\r\n                </ng-ui-form-control>\r\n                <ng-ui-form-control label=\"Date théorique de fin de préavis\">\r\n                    <ng-ui-date-picker formControlName=\"endDate\" format=\"EEEE d MMMM yyyy\" [includeTime]=\"false\"></ng-ui-date-picker>\r\n                </ng-ui-form-control>\r\n            </ng-ui-form-controls>\r\n\r\n            <ng-ui-form-control label=\"Prestations\">\r\n                <file-upload formControlName=\"prestations\" [multiple]=\"false\" [animation]=\"true\"></file-upload>\r\n            </ng-ui-form-control>\r\n\r\n            <ng-ui-form-control label=\"Absences\">\r\n                <file-upload formControlName=\"leaves\" [multiple]=\"false\" [animation]=\"true\"></file-upload>\r\n            </ng-ui-form-control>\r\n\r\n            <div class=\"errors mt2\" *ngIf=\"this.result && this.result.errors && this.result.errors.length > 0\">\r\n                <div class=\"error box\" *ngFor=\"let err of this.result.errors\">\r\n                    {{err}}\r\n                </div>\r\n            </div>\r\n\r\n            <ng-ui-button-group class=\"mt2\">\r\n                <ng-ui-button icon=\"calculator\" type=\"success\" (click)=\"save()\" [disabled]=\"!form.valid\" [loading]=\"false\">Calculer</ng-ui-button>\r\n\r\n            </ng-ui-button-group>\r\n\r\n        </ng-ui-form>\r\n    </ng-container>\r\n\r\n    <ng-container *ngIf=\"state == 'loading'\">\r\n        <div class=\"lds-facebook\"><div></div><div></div><div></div></div>\r\n    </ng-container>\r\n\r\n    <ng-container *ngIf=\"state == 'results'\">\r\n\r\n        <ng-ui-tab-group orientation=\"vertical\" [light]=\"false\" [hideSingle]=\"true\">\r\n            <ng-ui-tab label=\"Détail du calcul\">\r\n                <h1>\r\n                    <i class=\"fas fa-fw fa-keyboard\"></i>\r\n                    Entrées\r\n                </h1>\r\n                <div>\r\n                    <div class=\"box\">\r\n                        Date de début de préavis : {{result.startDate | date: 'fullDate'}}\r\n                    </div>\r\n                    <div class=\"box\">\r\n                        Date théorique de fin de préavis : {{result.endDate | date: 'fullDate'}}\r\n                    </div>\r\n                </div>\r\n\r\n\r\n\r\n                <h1 class=\"mt2\">\r\n                    <i class=\"fas fa-fw fa-clipboard-check\"></i>\r\n                    Résultats\r\n                </h1>\r\n                <div>\r\n                    <div class=\"box\">\r\n                        Prolongation : <strong>{{result.totalExtensions}}</strong> jour(s)\r\n                    </div>\r\n                    <div class=\"box\">\r\n                        Date réelle de fin de préavis : <strong>{{result.calculatedEndDate | date: 'fullDate'}}</strong>\r\n                    </div>\r\n                </div>\r\n\r\n                <ng-container *ngIf=\"result && result.extensions && result.extensions.length > 0\">\r\n                    <h1 class=\"mt2\">\r\n                        <i fa-fw class=\"fas fa-info-circle\"></i>\r\n                        Justifications\r\n                    </h1>\r\n                    <div>\r\n                        <div class=\"box\" *ngFor=\"let ext of result.extensions\">\r\n                            <div class=\"flex-row\">\r\n                                <div style=\"width:300px\" class=\"flex-row\">\r\n                                    {{ext.date | date: 'fullDate'}}\r\n                                </div>\r\n                                <div class=\"flex-row flex-aic\">\r\n                                    <div class=\"small-box\" *ngFor=\"let c of ext.codes\" [tooltip]=\"c.description\">\r\n                                        {{c.code}}\r\n                                    </div>\r\n\r\n                                </div>\r\n                            </div>\r\n                        </div>\r\n                    </div>\r\n                </ng-container>\r\n\r\n                <ng-container *ngIf=\"result && result.missings && result.missings.length > 0\">\r\n                    <h1 class=\"mt2\">\r\n                        <i class=\"fas fa-fw fa-exclamation-triangle\"></i>\r\n                        Jours sans aucune informations\r\n                    </h1>\r\n                    <div>\r\n                        <div class=\"box\" *ngFor=\"let ext of result.missings\">\r\n                            <div class=\"flex-row\">\r\n                                <div style=\"width:300px\" class=\"flex-row\">\r\n                                    {{ext.date | date: 'fullDate'}}\r\n                                </div>\r\n                                <div>\r\n                                    {{ext.comment}}\r\n                                </div>\r\n                            </div>\r\n                        </div>\r\n                    </div>\r\n                </ng-container>\r\n\r\n                \r\n\r\n                <h1 class=\"mt2\">\r\n                    <i class=\"fas fa-fw fa-download\"></i>\r\n                    Exporter le résultat\r\n                </h1>\r\n                <ng-ui-form [formGroup]=\"downloadForm\" [disableSectionColoring]=\"true\">\r\n                    <ng-ui-form-control label=\"Nom du fichier\">\r\n                        <input type=\"text\" formControlName=\"fileName\" />\r\n                    </ng-ui-form-control>\r\n                   \r\n                    <ng-ui-button-group class=\"mt1\">\r\n                        <ng-ui-button icon=\"file-pdf\" [disabled]=\"!downloadForm.valid\" type=\"information\" (click)=\"toPdf()\" [loading]=\"false\">Exporter en PDF</ng-ui-button>\r\n                        <ng-ui-button icon=\"download\" [disabled]=\"!downloadForm.valid\" type=\"information\" (click)=\"downloadResult()\" [loading]=\"false\">Sauvegarder ce résultat</ng-ui-button>\r\n                    </ng-ui-button-group>\r\n                   \r\n                </ng-ui-form>\r\n\r\n            </ng-ui-tab>\r\n            <ng-ui-tab label=\"Calendrier\">\r\n                <ng-ui-calendar [events]=\"events\">\r\n                    <ng-template ngUiCalendarEvent let-event>\r\n                        {{ event.title }}\r\n                    </ng-template>\r\n                    <ng-template ngUiCalendarTooltip let-day>\r\n                        <div *ngFor=\"let e of day.events\">{{ e.data.title }}</div>\r\n                    </ng-template>\r\n                </ng-ui-calendar>\r\n\r\n            </ng-ui-tab>\r\n\r\n        </ng-ui-tab-group>\r\n\r\n\r\n\r\n        <ng-ui-button-group class=\"mt2\">\r\n            <ng-ui-button icon=\"undo-alt\" type=\"default\" (click)=\"resetPage()\" [loading]=\"false\">Nouvelle simulation</ng-ui-button>\r\n            <a id=\"downloadAnchorElem\" style=\"display:none\"></a>\r\n        </ng-ui-button-group>\r\n    </ng-container>\r\n</div>");
 
 /***/ }),
 

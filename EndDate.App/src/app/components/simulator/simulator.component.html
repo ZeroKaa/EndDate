@@ -109,22 +109,22 @@
                     </div>
                 </ng-container>
 
-                <!--<h1 class="mt2 pointer" (click)="toPdf()">
-                    <i class="fas fa-file-pdf"></i>
-                    Exporter en PDF
-                </h1>-->
+                
 
                 <h1 class="mt2">
                     <i class="fas fa-fw fa-download"></i>
-                    Sauvegarder le résultat
+                    Exporter le résultat
                 </h1>
                 <ng-ui-form [formGroup]="downloadForm" [disableSectionColoring]="true">
                     <ng-ui-form-control label="Nom du fichier">
                         <input type="text" formControlName="fileName" />
                     </ng-ui-form-control>
+                   
                     <ng-ui-button-group class="mt1">
-                        <ng-ui-button icon="download" [disabled]="!downloadForm.valid" type="information" (click)="downloadResult()" [loading]="false">Télécharger ce résultat</ng-ui-button>
+                        <ng-ui-button icon="file-pdf" [disabled]="!downloadForm.valid" type="information" (click)="toPdf()" [loading]="false">Exporter en PDF</ng-ui-button>
+                        <ng-ui-button icon="download" [disabled]="!downloadForm.valid" type="information" (click)="downloadResult()" [loading]="false">Sauvegarder ce résultat</ng-ui-button>
                     </ng-ui-button-group>
+                   
                 </ng-ui-form>
 
             </ng-ui-tab>

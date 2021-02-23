@@ -7,6 +7,8 @@ import { CalculationService } from '../../services/calculation.service';
 import * as lodash from 'lodash';
 import { DateService } from '../../services/date.service';
 import { Session } from 'inspector';
+import * as jsPdf from 'jspdf';
+import { DatePipe } from '@angular/common';
 
 
 export interface ICalculationInput {
@@ -35,7 +37,8 @@ export class SimulatorComponent implements OnInit {
         private _route: ActivatedRoute,
         private _fb: FormBuilder,
         private _calculator: CalculationService,
-        private _date: DateService
+        private _date: DateService,
+        private _datePipe: DatePipe
     ) {
         this.resetForm();
     }
@@ -121,10 +124,54 @@ export class SimulatorComponent implements OnInit {
         }
     }
 
-    public toPdf() {
+    public async toPdf() {
         if (this.result) {
-            sessionStorage.setItem('open_simulation', JSON.stringify(this.result));
-            this._router.navigateByUrl('/pdf');
+            //sessionStorage.setItem('open_simulation', JSON.stringify(this.result));
+            //this._router.navigateByUrl('/pdf');
+            const filename = 'export.pdf';
+
+            var page = 1;
+            var doc = new jsPdf.jsPDF("p","mm","a4");
+            
+            var y = 20;
+            doc.setFontSize(16)
+            doc.text('Calcul de prolongation de préavis', 10, y);
+            doc.setFontSize(10);
+            y += 15;
+            doc.text(`Date de début de préavis : ${this._datePipe.transform(this.result.startDate, 'fullDate')}`, 10, y);
+            y += 5;
+            doc.text(`Date théorique de fin de préavis : ${this._datePipe.transform(this.result.endDate, 'fullDate')}`, 10, y);
+            y += 10;
+            doc.text(`Prolongation : ${this.result.totalExtensions} jour(s)`,10,y);
+            y += 5;
+            doc.text(`Date réelle de fin de préavis : ${this._datePipe.transform(this.result.calculatedEndDate, 'fullDate')}`,10,y);
+            
+            y += 15;
+            doc.setFontSize(12);
+            doc.text("Jours de prolongation", 10, y);
+            y += 10;
+            
+            doc.setFontSize(10);
+            for (let d of this.result.extensions) {
+                console.log(this._datePipe.transform(d.date, 'fullDate'), y);
+                this._date.convertToDate(d);
+                doc.text(`${this._datePipe.transform(d.date, 'fullDate')}`, 10, y);
+
+                for (let code of d.codes) {
+                    doc.text(`${code.code} - ${code.description}`, 70, y);
+                    y += 5;
+                    if (y > 280) {
+                        doc.addPage("a4", "p");
+                        page++;
+                        doc.setPage(page);
+                        y = 20;
+                    }
+                }
+
+                //y += 5;
+            }
+
+            doc.save(`${this.downloadForm.value.fileName}.pdf`);
         }
     }
 
