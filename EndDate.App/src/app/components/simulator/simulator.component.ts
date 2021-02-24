@@ -74,17 +74,18 @@ export class SimulatorComponent implements OnInit {
         this.showCalendar = false;
         this.events = [];
         for (const m of this.result.extensions) {
-            var date = new Date(m.date);
-            var endDate = new Date(m.date);
+            this._date.convertToDate(m);
+            var date = m.date;
+            var endDate = m.date;
             endDate.setHours(23, 59, 59);
             var title = '';
             for (const c of m.codes) {
-                title += c.code + ",";
+                title += c.code + ","; 
             }
             this.events.push(
                 {
                     from: date,
-                    to: endDate,
+                    to: new Date(date.setDate(date.getDate()+1)),
                     title: title,
                     type: "extension"
                 });
@@ -93,7 +94,7 @@ export class SimulatorComponent implements OnInit {
        
         console.log("events", this.events);
 
-        this.showCalendar = false;
+        this.showCalendar = true;
     }
 
     public resetForm() {

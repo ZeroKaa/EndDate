@@ -23,7 +23,7 @@
     "@angular/router": "11.0.0",
     "@iplab/ngx-file-upload": "^2.0.9",
     "@microsoft/signalr": "5.0.0",
-    "@sfpd/ng-ui": "^5.2.0",
+    "@sfpd/ng-ui": "6.3.0",
     "angular-feather": "6.0.10",
     "angular-gridster2": "11.0.1",
     "angular-oauth2-oidc": "10.0.3",
