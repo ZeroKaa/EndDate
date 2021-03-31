@@ -231,12 +231,19 @@ namespace EndDate.Services
                                     }
                                     else
                                     {
-                                        foreach (var c in d.Codes)
+                                        if (!d.Codes.Any())
                                         {
-                                            if (extensionBetweenHolidaysTypes.Contains(c) == false)
+                                            extend = false;
+                                        }
+                                        else
+                                        {
+                                            foreach (var c in d.Codes)
                                             {
-                                                extend = false;
-                                                break;
+                                                if (extensionBetweenHolidaysTypes.Contains(c) == false)
+                                                {
+                                                    extend = false;
+                                                    break;
+                                                }
                                             }
                                         }
                                     }
@@ -279,12 +286,15 @@ namespace EndDate.Services
 
                     }
 
+                    //exDay.Date = new DateTime(exDay.Date.Ticks, DateTimeKind.Unspecified);
+                    exDay.Date = exDay.Date.AddHours(-1);
                     output.Extensions.Add(exDay);
                 }
 
                 //add missings
                 foreach (var day in days.Where(d => d.IsNotDefined))
                 {
+                    day.Date = day.Date.AddHours(-1);
                     output.Missings.Add(new ExtensionDay { Date = day.Date });
                 }
 

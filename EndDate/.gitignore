@@ -1,0 +1,19 @@
+# Folders
+**/.vs/
+**/wwwroot/
+**/bin/
+**/obj/
+**/node_modules/
+**/pkgobj/
+**/logs/
+**/App_Data/
+**/TestResults
+**/packages
+
+# Files
+*.suo
+*.user
+*.pdb
+*.coverage
+*.sdf
+*.db

@@ -49,7 +49,7 @@ export class SimulatorComponent implements OnInit {
             this.updateCalendar();
             this.state = "results";
             sessionStorage.removeItem('open_simulation');
-        }
+        } 
     }
 
     public async save() {
@@ -77,7 +77,7 @@ export class SimulatorComponent implements OnInit {
             this._date.convertToDate(m);
             var date = m.date;
             var endDate = m.date;
-            endDate.setHours(23, 59, 59);
+            //endDate.setHours(23, 59, 59);
             var title = '';
             for (const c of m.codes) {
                 title += c.code + ","; 
@@ -92,7 +92,7 @@ export class SimulatorComponent implements OnInit {
         }
 
        
-        console.log("events", this.events);
+        
 
         this.showCalendar = true;
     }
@@ -156,9 +156,9 @@ export class SimulatorComponent implements OnInit {
             
             doc.setFontSize(10);
             for (let d of this.result.extensions) {
-                console.log(this._datePipe.transform(d.date, 'fullDate'), y);
+                
                 this._date.convertToDate(d);
-                doc.text(`${this._datePipe.transform(d.date, 'fullDate')}`, 10, y);
+                
 
                 for (let code of d.codes) {
                     doc.text(`${code.code} - ${code.description}`, 70, y);

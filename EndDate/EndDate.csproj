@@ -6,10 +6,23 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="wwwroot\**" />
-    <Content Remove="wwwroot\**" />
-    <EmbeddedResource Remove="wwwroot\**" />
-    <None Remove="wwwroot\**" />
+    <_WebToolingArtifacts Remove="Properties\PublishProfiles\cp-enddate-test - Web Deploy.pubxml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="wwwroot\4.502ab97d4ef1078084c7.js" />
+    <None Include="wwwroot\5.287fa14f3efb23fcf490.js" />
+    <None Include="wwwroot\6.f96479ed039454f9a8fd.js" />
+    <None Include="wwwroot\fa-brands-400.6e63bd22128f27b83f22.woff2" />
+    <None Include="wwwroot\fa-brands-400.991c1c761fc31f9c3252.svg" />
+    <None Include="wwwroot\fa-regular-400.2c154b0f8c0d8d166162.woff2" />
+    <None Include="wwwroot\fa-regular-400.f3187c7462849ed261a8.svg" />
+    <None Include="wwwroot\fa-solid-900.0454203f26b33fc02e2b.svg" />
+    <None Include="wwwroot\fa-solid-900.3eb06c702e27fb110194.woff2" />
+    <None Include="wwwroot\main.5424a46469dec806e1a6.js" />
+    <None Include="wwwroot\polyfills.0dcc642fff5fdf8a7a3d.js" />
+    <None Include="wwwroot\runtime.615defc65e18b23e5788.js" />
+    <None Include="wwwroot\styles.css.map" />
   </ItemGroup>
 
   <ItemGroup>

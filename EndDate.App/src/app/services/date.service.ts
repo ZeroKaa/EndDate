@@ -20,6 +20,7 @@ export class DateService {
 
     private readonly PATTERN: string = "yyyy-MM-ddTHH:mm:ss.SSS";
     private readonly ISO8601: RegExp = /^\d{4}-\d\d-\d\dT\d\d:\d\d:\d\d(\.\d+)?(([+-]\d\d:\d\d)|Z)?$/;
+    private readonly ISDATE: RegExp = /^\d{4}-\d\d-\d\dT\d\d:\d\d:\d\d$/;
 
     /******************************************************** LIFE CYCLE ********************************************************/
 
@@ -51,9 +52,8 @@ export class DateService {
 
             
             if (this._isIso8601(value)) {
-                console.log("is iso");
                 body[key] = new Date(value);
-                console.log("converted", body[key]);
+                
             }
             else if (typeof value === 'object') {
                 this.convertToDate(value);
@@ -229,6 +229,6 @@ export class DateService {
             return false;
         }
 
-        return this.ISO8601.test(value);
+        return this.ISO8601.test(value) || this.ISDATE.test(value);
     }
 }

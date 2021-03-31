@@ -23,7 +23,6 @@ export class CalculationService {
     public async calculate(input: any): Promise<ICalculationOutput> {
         this._date.convertToString(input);
         var s = await this._http.post<ICalculationOutput>('/api/calculator', input).toPromise();
-        
         return s;
     }
 
