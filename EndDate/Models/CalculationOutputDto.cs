@@ -22,12 +22,14 @@ namespace EndDate.Models
         public DateTime CalculatedEndDate { get; set; }
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
+        public List<AlertDay> Alerts { get; set; }
 
         public CalculationOutputDto()
         {
             Errors = new List<string>();
             Extensions = new List<ExtensionDay>();
             Missings = new List<ExtensionDay>();
+            Alerts = new List<AlertDay>();
         }
     }
 }

@@ -12,8 +12,14 @@ export interface ICalculationOutput {
     missings: IJustification[];
     startDate: Date;
     endDate: Date;
+    alerts: IAlertDay[];
 }
 
+export interface IAlertDay {
+    date: Date;
+    code: string;
+
+}
 export interface IJustification {
     date: Date;
     codes: ILeaveType[];
@@ -33,4 +39,5 @@ export interface ILeaveType {
     description?: string;
     isExtending: boolean;
     isExtendingBetweenHolidays: boolean;
+    isAlerting:boolean;
 }

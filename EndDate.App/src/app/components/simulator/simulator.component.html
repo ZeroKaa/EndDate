@@ -68,6 +68,27 @@
                     </div>
                 </div>
 
+                <ng-container *ngIf="result && result.alerts && result.alerts.length > 0">
+                    <h1 class="mt2 red">
+                        <i fa-fw class="fas fa-exclamation-triangle"></i>
+                        Alertes
+                    </h1>
+                    <div>
+                        <div class="box error" *ngFor="let alert of result.alerts">
+                            <div class="flex-row">
+                                <div style="width:300px" class="flex-row">
+                                    {{alert.date | date: 'fullDate'}}
+                                </div>
+                                <div class="flex-row flex-aic">
+                                    <div class="small-box">
+                                        {{alert.code}}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </ng-container>
+
                 <ng-container *ngIf="result && result.extensions && result.extensions.length > 0">
                     <h1 class="mt2">
                         <i fa-fw class="fas fa-info-circle"></i>
@@ -109,7 +130,7 @@
                     </div>
                 </ng-container>
 
-                
+
 
                 <h1 class="mt2">
                     <i class="fas fa-fw fa-download"></i>
@@ -119,12 +140,12 @@
                     <ng-ui-form-control label="Nom du fichier">
                         <input type="text" formControlName="fileName" />
                     </ng-ui-form-control>
-                   
+
                     <ng-ui-button-group class="mt1">
                         <ng-ui-button icon="file-pdf" [disabled]="!downloadForm.valid" type="information" (click)="toPdf()" [loading]="false">Exporter en PDF</ng-ui-button>
                         <ng-ui-button icon="download" [disabled]="!downloadForm.valid" type="information" (click)="downloadResult()" [loading]="false">Sauvegarder ce résultat</ng-ui-button>
                     </ng-ui-button-group>
-                   
+
                 </ng-ui-form>
 
             </ng-ui-tab>

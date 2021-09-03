@@ -146,11 +146,21 @@ namespace EndDate.Services
             var leaveTypes = (await this._leaveTypes.LoadAsync()).ToList();
             var extensionTypes = leaveTypes.Where(e => e.IsExtending == true).Select(e => e.Code);
             var extensionBetweenHolidaysTypes = leaveTypes.Where(e => e.IsExtendingBetweenHolidays == true).Select(e => e.Code);
+            var alertTypes = leaveTypes.Where(e => e.IsAlerting == true).Select(e => e.Code);
 
             if (!output.Errors.Any())
             {
-                var days = new List<ProcessedDay>();
 
+                //Add alerts
+                foreach (var leave in leaves) {
+                    if (alertTypes.Contains(leave.Code))
+                    {
+                        output.Alerts.Add(new AlertDay { Date = leave.Date, Code = leave.Code });
+                    }
+                }
+
+
+                var days = new List<ProcessedDay>();
                 //loop on all days
                 var currentday = input.StartDate;
                 var endDate = input.EndDate;
