@@ -39,6 +39,10 @@ export class LeaveTypesService {
         await this._http.put('/api/leavetype/extending-holiday', leaveType).toPromise();
     }
 
+    public async toggleAlerting(leaveType: ILeaveType) {
+        await this._http.put('/api/leavetype/alerting', leaveType).toPromise();
+    }
+
 }
 
 

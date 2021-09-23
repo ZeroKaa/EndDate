@@ -34,5 +34,10 @@ namespace EndDate.Models
         }
     }
 
+    public class AlertDay {
+        public DateTime Date { get; set; }
+        public string Code { get; set; }
+    }
+
 
 }

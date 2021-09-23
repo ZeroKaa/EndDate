@@ -12,6 +12,7 @@ namespace EndDate.Models
         public string Description { get; set; }
         public bool IsExtending { get; set; }
         public bool IsExtendingBetweenHolidays { get; set; }
+        public bool IsAlerting { get; set; }
 
         public int CompareTo(LeaveTypeDto other)
         {

@@ -20,7 +20,9 @@
                         Suspensatoire si entre congés ?
                     </td>
                     <td class="text-center">
-
+                       Alerte ?
+                    </td>
+                    <td class="text-center">
                     </td>
                 </tr>
             </thead>
@@ -37,6 +39,9 @@
                     </td>
                     <td class="text-center">
                         <i class="fas fa-circle pointer" (click)="toggleExtendHolidays(type)" [class.grey]="type.isExtendingBetweenHolidays == false" [class.green]="type.isExtendingBetweenHolidays == true"></i>
+                    </td>
+                    <td class="text-center">
+                        <i class="fas fa-circle pointer" (click)="toggleAlerting(type)" [class.grey]="type.isAlerting == false" [class.green]="type.isAlerting == true"></i>
                     </td>
                     <td class="text-center">
                         <i class="fas fa-trash-alt pointer red" (click)="delete(type)"></i>

@@ -73,4 +73,9 @@ export class LeaveTypesComponent implements OnInit {
         await this._leaveTypes.toggleExtendingHolidays(t);
         await this.refresh();
     }
+
+    public async toggleAlerting(t: ILeaveType) {
+        await this._leaveTypes.toggleAlerting(t);
+        await this.refresh();
+    }
 }

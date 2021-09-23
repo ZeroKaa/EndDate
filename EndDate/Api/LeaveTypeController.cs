@@ -73,5 +73,18 @@ namespace EndDate.Api
             }
             return Ok();
         }
+
+        [HttpPut("alerting")]
+        public async Task<IActionResult> ToggleAlerting(LeaveTypeDto dto)
+        {
+            var values = await this._leaveTypes.LoadAsync();
+            var item = values.FirstOrDefault(v => v.Code == dto.Code);
+            if (item != null)
+            {
+                item.IsAlerting = !item.IsAlerting;
+                await this._leaveTypes.SaveAsync(values);
+            }
+            return Ok();
+        }
     }
 }
